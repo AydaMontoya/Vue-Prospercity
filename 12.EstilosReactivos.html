@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades Computadas</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@next"></script>
+    <div id="app"></div>
+        
+    <script>
+    const vm = Vue.createApp({
+        data() {
+                return {
+                    text: "Puerta cerrada",
+                    open: false,
+                };
+            },
+            watch: {
+                open(value) {
+                    if (value) {
+                        this.text = "Puerta abierta";
+    
+                    } else {
+                        this.text = "Puerta cerrada";
+                    }
+                }
+            },
+            computed: {
+                label() {
+                    return this.open ? "closed" : "open";
+                },
+                styles() {
+                    return this.open ? ['open'] : ['closed'];
+                }
+            },
+            template: `
+            <div class="container">
+            <div class="container" :class="styles">
+                <h2>{{ text }}</h2>
+                <button @click="open = !open">{{ label }}</button>
+            </div
+                `
+        }).mount("#app");
+    </script>
+
+    <Style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border:none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+        
+        .close {
+            background-color:rgb(184, 45, 117);
+        }
+        
+        .open {
+            background-color: rgb(105, 193, 164);
+        }
+        </Style>
+</body>
+</html>
